@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACP & AHD — Quick Reference Summary</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal-dark:  #085041;
+      --teal-mid:   #0F6E56;
+      --teal-main:  #1D9E75;
+      --teal-light: #5DCAA5;
+      --teal-pale:  #E1F5EE;
+      --teal-bdr:   #9FE1CB;
+      --warn-bg:    #FAECE7;
+      --warn-bdr:   #F5C4B3;
+      --warn-dark:  #712B13;
+      --warn-mid:   #993C1D;
+      --gray-dark:  #2C2C2A;
+      --gray-mid:   #5F5E5A;
+      --gray-light: #D3D1C7;
+      --gray-pale:  #F1EFE8;
+      --white:      #FFFFFF;
+    }
+
+    html { font-size: 14px; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--gray-pale);
+      color: var(--gray-dark);
+      min-height: 100vh;
+      padding: 24px 16px 40px;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 24px rgba(8,80,65,0.10);
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: var(--teal-dark);
+      padding: 28px 32px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+    }
+    .header-left {}
+    .header-tag {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal-light);
+      margin-bottom: 8px;
+    }
+    .header-title {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.25;
+    }
+    .header-sub {
+      font-size: 12px;
+      color: var(--teal-light);
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+    .header-right {
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .header-course {
+      font-size: 10px;
+      color: var(--teal-bdr);
+      line-height: 1.7;
+    }
+
+    /* ── GRID BODY ── */
+    .body {
+      padding: 20px 24px 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+    }
+
+    /* Cards */
+    .card {
+      border-radius: 8px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .card.teal-dark  { background: var(--teal-dark); }
+    .card.teal-mid   { background: var(--teal-mid); }
+    .card.teal-pale  { background: var(--teal-pale); border: 1px solid var(--teal-bdr); }
+    .card.gray-pale  { background: var(--gray-pale); border: 1px solid var(--gray-light); }
+    .card.warn       { background: var(--warn-bg);   border: 1px solid var(--warn-bdr); }
+    .card.white      { background: var(--white);     border: 1px solid var(--gray-light); }
+
+    .card-label {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 20px;
+      width: fit-content;
+    }
+    .card.teal-dark .card-label,
+    .card.teal-mid  .card-label  { background: rgba(255,255,255,0.12); color: var(--teal-light); }
+    .card.teal-pale .card-label  { background: var(--teal-dark);       color: var(--teal-pale); }
+    .card.gray-pale .card-label  { background: var(--gray-light);      color: var(--gray-dark); }
+    .card.warn      .card-label  { background: var(--warn-bdr);        color: var(--warn-dark); }
+    .card.white     .card-label  { background: var(--teal-pale);       color: var(--teal-dark); }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    .card.teal-dark .card-title,
+    .card.teal-mid  .card-title  { color: var(--teal-bdr); }
+    .card.teal-pale .card-title  { color: var(--teal-dark); }
+    .card.gray-pale .card-title,
+    .card.white     .card-title  { color: var(--gray-dark); }
+    .card.warn      .card-title  { color: var(--warn-dark); }
+
+    .card-body {
+      font-size: 11.5px;
+      line-height: 1.6;
+    }
+    .card.teal-dark .card-body,
+    .card.teal-mid  .card-body  { color: #E1F5EE; }
+    .card.teal-pale .card-body  { color: var(--teal-mid); }
+    .card.gray-pale .card-body,
+    .card.white     .card-body  { color: var(--gray-mid); }
+    .card.warn      .card-body  { color: var(--warn-mid); }
+
+    /* Dot list */
+    .dot-list { display: flex; flex-direction: column; gap: 5px; }
+    .dot-row  { display: flex; gap: 8px; align-items: flex-start; }
+    .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      flex-shrink: 0; margin-top: 5px;
+    }
+    .card.teal-dark .dot, .card.teal-mid .dot { background: var(--teal-light); }
+    .card.teal-pale .dot { background: var(--teal-main); }
+    .card.gray-pale .dot, .card.white .dot { background: var(--teal-main); }
+    .card.warn      .dot { background: var(--warn-mid); }
+
+    .dot-text { font-size: 11px; line-height: 1.55; }
+    .card.teal-dark .dot-text,
+    .card.teal-mid  .dot-text { color: #E1F5EE; }
+    .card.teal-pale .dot-text { color: var(--teal-mid); }
+    .card.gray-pale .dot-text,
+    .card.white     .dot-text { color: var(--gray-mid); }
+    .card.warn      .dot-text { color: var(--warn-mid); }
+
+    /* Span helpers */
+    .span2 { grid-column: span 2; }
+    .span3 { grid-column: span 3; }
+
+    /* Hierarchy strip */
+    .hier { grid-column: span 3; display: flex; flex-direction: column; gap: 0; border-radius: 8px; overflow: hidden; border: 1px solid var(--teal-bdr); }
+    .hier-header { background: var(--teal-dark); padding: 10px 16px; font-size: 11px; font-weight: 600; color: var(--teal-bdr); letter-spacing: 0.06em; text-transform: uppercase; }
+    .hier-items { display: flex; }
+    .hier-item {
+      flex: 1;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      border-right: 1px solid var(--teal-bdr);
+      position: relative;
+    }
+    .hier-item:last-child { border-right: none; }
+    .hier-rank {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .hier-name { font-size: 11px; font-weight: 500; }
+    .hier-sub  { font-size: 10px; }
+
+    .h1 { background: var(--teal-dark); }
+    .h1 .hier-rank { color: var(--teal-light); }
+    .h1 .hier-name { color: var(--white); }
+    .h1 .hier-sub  { color: var(--teal-bdr); }
+
+    .h2 { background: var(--teal-mid); }
+    .h2 .hier-rank { color: var(--teal-light); }
+    .h2 .hier-name { color: var(--white); }
+    .h2 .hier-sub  { color: var(--teal-pale); }
+
+    .h3 { background: var(--teal-main); }
+    .h3 .hier-rank { color: var(--teal-pale); }
+    .h3 .hier-name { color: var(--white); }
+    .h3 .hier-sub  { color: var(--teal-pale); }
+
+    .h4 { background: var(--teal-pale); }
+    .h4 .hier-rank { color: var(--teal-main); }
+    .h4 .hier-name { color: var(--teal-dark); }
+    .h4 .hier-sub  { color: var(--teal-mid); }
+
+    .h5 { background: var(--gray-pale); }
+    .h5 .hier-rank { color: var(--gray-mid); }
+    .h5 .hier-name { color: var(--gray-dark); }
+    .h5 .hier-sub  { color: var(--gray-mid); }
+
+    /* Comparison table */
+    .comp { grid-column: span 3; border-radius: 8px; overflow: hidden; border: 1px solid var(--gray-light); }
+    .comp-header { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; background: var(--teal-dark); }
+    .comp-row    { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; }
+    .comp-row:nth-child(even) { background: var(--gray-pale); }
+    .comp-row:nth-child(odd)  { background: var(--white); }
+    .comp-cell {
+      padding: 8px 12px;
+      font-size: 11px;
+      border-right: 1px solid var(--gray-light);
+    }
+    .comp-cell:last-child { border-right: none; }
+    .comp-header .comp-cell { color: var(--white); font-weight: 600; font-size: 11px; border-right-color: rgba(255,255,255,0.15); }
+    .comp-cell.label { font-weight: 600; color: var(--gray-dark); }
+    .comp-cell.hl    { color: var(--teal-dark); font-weight: 600; }
+
+    /* Capacity framework */
+    .cap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .cap-item {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: rgba(255,255,255,0.08);
+      border-radius: 6px; padding: 8px 10px;
+    }
+    .cap-num {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--teal-main);
+      color: var(--white); font-size: 11px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .cap-text { font-size: 11px; line-height: 1.5; color: #E1F5EE; }
+    .cap-text strong { color: var(--teal-bdr); }
+
+    /* Resources strip */
+    .resources {
+      grid-column: span 3;
+      background: var(--teal-dark);
+      border-radius: 8px;
+      padding: 14px 16px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .res-item { display: flex; flex-direction: column; gap: 4px; }
+    .res-title { font-size: 10px; font-weight: 600; color: var(--teal-bdr); text-transform: uppercase; letter-spacing: 0.06em; }
+    .res-body  { font-size: 10.5px; color: #E1F5EE; line-height: 1.55; }
+    .res-link  { font-size: 10px; color: var(--teal-light); text-decoration: none; font-style: italic; }
+    .res-link:hover { text-decoration: underline; }
+
+    /* Footer */
+    .footer {
+      padding: 12px 24px;
+      border-top: 1px solid var(--gray-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-left  { font-size: 10px; color: var(--gray-mid); font-style: italic; }
+    .footer-right { font-size: 10px; color: var(--gray-mid); }
+
+    /* Section divider label */
+    .section-label {
+      grid-column: span 3;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal-main);
+      padding-bottom: 2px;
+      border-bottom: 1px solid var(--teal-bdr);
+      margin-bottom: -4px;
+    }
+
+    @media (max-width: 640px) {
+      .body { grid-template-columns: 1fr; }
+      .span2, .span3, .hier, .comp, .resources { grid-column: span 1; }
+      .hier-items { flex-direction: column; }
+      .hier-item { border-right: none; border-bottom: 1px solid var(--teal-bdr); }
+      .comp-header, .comp-row { grid-template-columns: 1fr 1fr; }
+      .resources { grid-template-columns: 1fr 1fr; }
+      .header { flex-direction: column; align-items: flex-start; }
+      .header-right { text-align: left; }
+    }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .page { box-shadow: none; border-radius: 0; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <p class="header-tag">IMED4222 · Aged Care SLP · Topic 2</p>
+      <h1 class="header-title">Advance Care Planning &amp; Advance Health Directives</h1>
+      <p class="header-sub">Quick reference summary — keep this handy on placement</p>
+    </div>
+
+  </div>
+
+  <!-- BODY GRID -->
+  <div class="body">
+
+    <!-- ROW 1: ACP, AHD, Key distinction -->
+    <p class="section-label">Foundations</p>
+
+    <div class="card teal-dark">
+      <span class="card-label">Process</span>
+      <p class="card-title">Advance Care Planning</p>
+      <div class="dot-list">
+        <div class="dot-row"><div class="dot"></div><p class="dot-text">Ongoing process — not a single form</p></div>
+        <div class="dot-row"><div class="dot"></div><p class="dot-text">Reflection on values, goals &amp; preferences for future care</p></div>
+        <div class="dot-row"><div class="dot"></div><p class="dot-text">Voluntary — start any age, ideally before illness</p></div>
+        <div class="dot-row"><div class="dot"></div><p class="dot-text">Review every 2–5 years or when health changes</p></div>
+        <div class="dot-row"><div class="dot"></div><p class="dot-text">WA Health framework: <strong style="color:#9FE1CB">Think · Talk · Write · Share</strong></p></div>
+      </div>
+    </div>
+
+    <div class="card teal-pale">
+      <span class="card-label">Legal document</span>
+      <p class="card-title">Advance Health Directive</p>
+      <div class="dot-list">
+        <div class="dot-row"><div class="dot"></div><p class="dot-text">Legally binding under G&amp;A Act 1990 (WA)</p></div>
+        <div class="dot-row"><div class="dot"></div><p class="dot-text">Records treatment consents &amp; refusals for specific future circumstances</p></div>
+        <div class="dot-row"><div class="dot"></div><p class="dot-text">Activates only when: (a) it applies to the treatment AND (b) patient lacks capacity</p></div>
+        <div class="dot-row"><div class="dot"></div><p class="dot-text">Validity: ≥18, full capacity, ≥1 treatment decision, 2 witnesses</p></div>
+        <div class="dot-row"><div class="dot"></div><p class="dot-text">Cannot include: VAD, futile treatment, organ donation</p></div>
+      </div>
+    </div>
+
+    <div class="card gray-pale">
+      <span class="card-label">Clinical form</span>
+      <p class="card-title">Goals of Patient Care</p>
+      <div class="dot-list">
+        <div class="dot-row"><div class="dot"></div><p class="dot-text">Clinical care planning form — hospital &amp; RACF setting</p></div>
+        <div class="dot-row"><div class="dot"></div><p class="dot-text">Led by clinical team, not the patient</p></div>
+        <div class="dot-row"><div class="dot"></div><p class="dot-text">Guidance only — not legally binding</p></div>
+        <div class="dot-row"><div class="dot"></div><p class="dot-text">Complements AHD — does not replace it</p></div>
+        <div class="dot-row"><div class="dot"></div><p class="dot-text">May cover situations not anticipated in the AHD</p></div>
+      </div>
+    </div>
+
+    <!-- ROW 2: Hierarchy -->
+    <p class="section-label">WA Hierarchy of Treatment Decision-Makers (when no AHD exists)</p>
+
+    <div class="hier">
+      <div class="hier-items">
+        <div class="hier-item h1">
+          <span class="hier-rank">1st</span>
+          <span class="hier-name">Advance Health Directive</span>
+          <span class="hier-sub">Must be followed if valid &amp; applicable</span>
+        </div>
+        <div class="hier-item h2">
+          <span class="hier-rank">2nd</span>
+          <span class="hier-name">Enduring Guardian</span>
+          <span class="hier-sub">Appointed by the patient</span>
+        </div>
+        <div class="hier-item h2">
+          <span class="hier-rank">3rd</span>
+          <span class="hier-name">Guardian with Authority</span>
+          <span class="hier-sub">Court or tribunal appointed</span>
+        </div>
+        <div class="hier-item h3">
+          <span class="hier-rank">4th</span>
+          <span class="hier-name">Spouse / De facto</span>
+          <span class="hier-sub"></span>
+        </div>
+        <div class="hier-item h4">
+          <span class="hier-rank">5th</span>
+          <span class="hier-name">Adult child</span>
+          <span class="hier-sub"></span>
+        </div>
+        <div class="hier-item h4">
+          <span class="hier-rank">6th–8th</span>
+          <span class="hier-name">Parent · Sibling · Carer</span>
+          <span class="hier-sub"></span>
+        </div>
+        <div class="hier-item h5">
+          <span class="hier-rank">Last resort</span>
+          <span class="hier-name">State Administrative Tribunal</span>
+          <span class="hier-sub">SAT — sat.justice.wa.gov.au</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 3: Capacity -->
+    <p class="section-label">Decision-Making Capacity</p>
+
+    <div class="card teal-mid span2">
+      <span class="card-label">Four-element framework</span>
+      <p class="card-title">Assessing capacity — all four must be satisfied</p>
+      <div class="cap-grid" style="margin-top:4px;">
+        <div class="cap-item">
+          <div class="cap-num">1</div>
+          <p class="cap-text"><strong>Understand</strong> — can they understand the information relevant to the decision?</p>
+        </div>
+        <div class="cap-item">
+          <div class="cap-num">2</div>
+          <p class="cap-text"><strong>Retain</strong> — can they hold the information long enough to make a decision?</p>
+        </div>
+        <div class="cap-item">
+          <div class="cap-num">3</div>
+          <p class="cap-text"><strong>Weigh up</strong> — can they reason through the decision and appreciate its consequences?</p>
+        </div>
+        <div class="cap-item">
+          <div class="cap-num">4</div>
+          <p class="cap-text"><strong>Communicate</strong> — can they express their decision in any way?</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card teal-dark">
+      <span class="card-label">Key principles</span>
+      <p class="card-title">Never forget these</p>
+      <div class="dot-list">
+        <div class="dot-row"><div class="dot"></div><p class="dot-text">Presumed present — burden is on demonstrating absence</p></div>
+        <div class="dot-row"><div class="dot"></div><p class="dot-text">Decision-specific — not a blanket judgement</p></div>
+        <div class="dot-row"><div class="dot"></div><p class="dot-text">Time-specific — reassess when circumstances change</p></div>
+        <div class="dot-row"><div class="dot"></div><p class="dot-text">Cognitive impairment ≠ no capacity</p></div>
+        <div class="dot-row"><div class="dot"></div><p class="dot-text">Document all 4 elements, date &amp; sign</p></div>
+      </div>
+    </div>
+
+    <!-- ROW 4: Ethics -->
+    <p class="section-label">Ethics, grey areas &amp; definitions</p>
+
+    <div class="card teal-dark">
+      <span class="card-label">Principle</span>
+      <p class="card-title">Autonomy is the foundation</p>
+      <p class="card-body">A competent adult can refuse any treatment — even life-saving. A valid binding refusal must be followed regardless of family or clinician views.</p>
+    </div>
+
+    <div class="card warn">
+      <span class="card-label">Grey area</span>
+      <p class="card-title">Family cannot override an AHD</p>
+      <p class="card-body">Next-of-kin wishes carry no legal precedence over a valid AHD. The document is the patient's voice. Acknowledge distress, but hold firm.</p>
+    </div>
+
+    <div class="card warn">
+      <span class="card-label">Grey area</span>
+      <p class="card-title">The limited exception</p>
+      <p class="card-body">Clinician may deviate only if: circumstances changed in an unforeseeable way AND a reasonable person would have decided differently. High bar — not routine.</p>
+    </div>
+
+    <div class="card gray-pale">
+      <span class="card-label">Definition</span>
+      <p class="card-title">What is the SAT?</p>
+      <p class="card-body">State Administrative Tribunal — WA's independent body for resolving guardianship &amp; medical treatment disputes. Last resort when AHD validity is contested.</p>
+    </div>
+
+    <div class="card gray-pale">
+      <span class="card-label">Grey area</span>
+      <p class="card-title">AHDs cannot request VAD</p>
+      <p class="card-body">Voluntary assisted dying requires ongoing capacity throughout and follows a separate legal pathway. It cannot be pre-authorised in an AHD.</p>
+    </div>
+
+    <div class="card teal-pale">
+      <span class="card-label">Practice point</span>
+      <p class="card-title">Always document disputes</p>
+      <p class="card-body">Record the nature of the dispute, who was involved, what the AHD states, why it applies, and steps taken to resolve it. Your notes protect the patient and you.</p>
+    </div>
+
+    <!-- ROW 5: Resources -->
+    <p class="section-label">Resources</p>
+
+    <div class="resources">
+      <div class="res-item">
+        <p class="res-title">WA Health — ACP</p>
+        <p class="res-body">HP guide, AHD form, FAQs, glossary</p>
+        <a class="res-link" href="https://www.health.wa.gov.au/Articles/A_E/Advance-Care-Planning" target="_blank">health.wa.gov.au → ACP</a>
+      </div>
+      <div class="res-item">
+        <p class="res-title">WA Health — AHD Form</p>
+        <p class="res-body">Free download or order printed copy<br>ACP@health.wa.gov.au · 9222 2300</p>
+        <a class="res-link" href="https://www.healthywa.wa.gov.au/Articles/A_E/Advance-Health-Directives" target="_blank">healthywa.wa.gov.au → AHD</a>
+      </div>
+      <div class="res-item">
+        <p class="res-title">RACGP — ACP</p>
+        <p class="res-body">GP-specific counselling frameworks &amp; position statement</p>
+        <a class="res-link" href="https://www.racgp.org.au/running-a-practice/practice-resources/practice-tools/advance-care-planning" target="_blank">racgp.org.au → Practice tools</a>
+      </div>
+      <div class="res-item">
+        <p class="res-title">Palliative Care WA</p>
+        <p class="res-body">Free ACP workshops + ACP Support Service: 1300 551 704</p>
+        <a class="res-link" href="https://www.palliativecarewa.asn.au" target="_blank">palliativecarewa.asn.au</a>
+      </div>
+    </div>
+
+  </div><!-- end body grid -->
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p class="footer-left">WA Dept of Health · RACGP · Guardianship &amp; Administration Act 1990 (WA) · SAT WA · Capacity Australia</p>
+    <p class="footer-right">IMED4222 · MD2 Aged Care SLP · Topic 2 · UWA Medical School</p>
+  </div>
+
+</div>
+</body>
+</html>
